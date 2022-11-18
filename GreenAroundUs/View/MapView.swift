@@ -29,34 +29,11 @@ struct MapView: View {
         ZStack{
             
             //지도부분
-            Image("Map01")
+            Image("treeSample")
                 .position(x:  coord.x , y: coord.y )
                 .offset(x: translate.width + offset.width, y: translate.height +  offset.height)
                 .scaleEffect(scale)
-                .gesture(
-                    DragGesture()
-                        .onChanged { guesture in
-                            offset = guesture.translation
-                            print(offset)
-                        }
-                        .onEnded { guesture in
-                            translate = CGSize(width: guesture.translation.width + translate.width, height: guesture.translation.height + translate.height)
-                            offset = CGSize.zero
-                            print("End translate : \(translate)")
-                            print("x: \(translate.width + coord.x + offset.width), y: \(translate.height + coord.y + offset.height)")
-                        }
                 
-                )
-                .gesture(
-                    MagnificationGesture()
-                        .onChanged { guesture in
-                            print(guesture)
-                            scale = guesture
-                        }
-                        .onEnded { guesture in
-                            scale = guesture
-                        }
-                )
            
             
             Path { path in
@@ -91,6 +68,30 @@ struct MapView: View {
                 .font(.largeTitle)
                 .foregroundColor(Color("Primary"))
         }.clipped()
+            .gesture(
+                DragGesture()
+                    .onChanged { guesture in
+                        offset = guesture.translation
+                        print(offset)
+                    }
+                    .onEnded { guesture in
+                        translate = CGSize(width: guesture.translation.width + translate.width, height: guesture.translation.height + translate.height)
+                        offset = CGSize.zero
+                        print("End translate : \(translate)")
+                        print("x: \(translate.width + coord.x + offset.width), y: \(translate.height + coord.y + offset.height)")
+                    }
+            
+            )
+            .gesture(
+                MagnificationGesture()
+                    .onChanged { guesture in
+                        print(guesture)
+                        scale = guesture
+                    }
+                    .onEnded { guesture in
+                        scale = guesture
+                    }
+            )
         
     }
     
